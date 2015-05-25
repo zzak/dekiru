@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', path: '~/code/rails'
 gem 'arel', github: 'rails/arel'
@@ -14,6 +13,11 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
+
+gem 'get_process_mem'
+gem 'redis'
+gem 'json'
+gem 'highcharts-rails'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

@@ -1,5 +1,15 @@
+require 'get_process_mem'
+require 'redis'
+require 'json'
+
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  after_action do
+    redis = Redis.new
+    memory = JSON.parse(redis.get("memory"))
+    memory["reports"] << {:time => Time.now.to_i, :size => GetProcessMem.new.mb}
+    redis.set "memory", memory.to_json
+  end
 
   # GET /posts
   # GET /posts.json
