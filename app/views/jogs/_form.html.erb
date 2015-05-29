@@ -1,0 +1,22 @@
+<%= form_for(jog) do |f| %>
+  <% if jog.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(jog.errors.count, "error") %> prohibited this jog from being saved:</h2>
+
+      <ul>
+      <% jog.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :n %><br>
+    <%= f.number_field :n %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
