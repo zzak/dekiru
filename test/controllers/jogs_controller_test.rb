@@ -28,16 +28,6 @@ class JogsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get edit" do
-    get :edit, params: { id: @jog }
-    assert_response :success
-  end
-
-  test "should update jog" do
-    patch :update, params: { id: @jog, jog: { n: @jog.n } }
-    assert_redirected_to jog_path(@jog)
-  end
-
   test "should destroy jog" do
     assert_difference('Jog.count', -1) do
       delete :destroy, params: { id: @jog }

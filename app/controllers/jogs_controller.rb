@@ -1,5 +1,5 @@
 class JogsController < ApplicationController
-  before_action :set_jog, only: [:show, :edit, :update, :destroy]
+  before_action :set_jog, only: [:show, :destroy]
 
   # GET /jogs
   # GET /jogs.json
@@ -17,10 +17,6 @@ class JogsController < ApplicationController
     @jog = Jog.new
   end
 
-  # GET /jogs/1/edit
-  def edit
-  end
-
   # POST /jogs
   # POST /jogs.json
   def create
@@ -32,20 +28,6 @@ class JogsController < ApplicationController
         format.json { render :show, status: :created, location: @jog }
       else
         format.html { render :new }
-        format.json { render json: @jog.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /jogs/1
-  # PATCH/PUT /jogs/1.json
-  def update
-    respond_to do |format|
-      if @jog.update(jog_params)
-        format.html { redirect_to @jog, notice: 'Jog was successfully updated.' }
-        format.json { render :show, status: :ok, location: @jog }
-      else
-        format.html { render :edit }
         format.json { render json: @jog.errors, status: :unprocessable_entity }
       end
     end
