@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', path: '~/code/rails'
+gem 'rails', github: 'rails/rails'
 gem 'arel', github: 'rails/arel'
 # Use pg as the database for Active Record
 gem 'pg'
