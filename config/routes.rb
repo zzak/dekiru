@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   resources :posts
-  resources :charts, only: [:index]
   resources :jogs, except: [:edit, :update]
 
   mount Resque::Server.new, :at => "/resque"
