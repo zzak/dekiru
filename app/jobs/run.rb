@@ -18,7 +18,7 @@ class Run
     }
 
     # Clear cache
-    redis = Redis.resque
+    redis = Resque.redis
     redis.del "results_cache"
 
     # Reset cache defaults
