@@ -1,17 +1,31 @@
 require 'get_process_mem'
-#require 'redis'
 require 'json'
 
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   after_action do
-    #redis = Redis.new
-    #memory = JSON.parse(redis.get("memory"))
-    #time = Time.now.to_i
-    #memory["reports"] << {:time => time, :size => GetProcessMem.new.mb}
-    #retained = GC.stat[:total_allocated_objects] - GC.stat[:total_freed_objects]
-    #memory["objects"] << {:time => time, :size => retained}
-    #redis.set "memory", memory.to_json
+    redis = Resque.redis
+    if redis.get "results_cache" # only run if results_cache is set
+      results_cache = JSON.parse(redis.get("results_cache"))
+      time = Time.now.to_i # Current time used for timestamp
+
+      # Cache current process memory size
+      results_cache["process_mem"] << {
+          :time => time,
+          :size => GetProcessMem.new.mb
+      }
+
+      # Calculate retained objects and cache
+      retained = (
+        GC.stat[:total_allocated_objects] - GC.stat[:total_freed_objects]
+      )
+      results_cache["retained_objects"] << {
+        :time => time,
+        :size => retained
+      }
+
+      redis.set "results_cache", results_cache.to_json
+    end
   end
 
   # GET /posts
