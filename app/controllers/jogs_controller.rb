@@ -10,6 +10,13 @@ class JogsController < ApplicationController
   # GET /jogs/1
   # GET /jogs/1.json
   def show
+    @memory = @jog.results["process_mem"].map do |jog|
+      [jog["time"]*1000, jog["size"]]
+    end
+    @retained = @jog.results["retained_objects"].map do |jog|
+      [jog["time"]*1000, jog["size"]]
+    end
+
   end
 
   # GET /jogs/new
