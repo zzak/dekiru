@@ -4,7 +4,10 @@ class Run
   @queue = :runs
 
   def self.perform(jog_id)
-    # TODO: restart web process before doing work
+    # TODO:
+    #   - restart web process before doing work
+    #   - reset database
+    #   - measure stat in separate process/fork
     jog = Jog.find(jog_id)
     jog.results = {}
 
