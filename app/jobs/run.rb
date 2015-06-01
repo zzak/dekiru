@@ -9,7 +9,7 @@ class Run
     jog.results = {}
 
     # Warm up
-    url = URI.parse(ENV["ruby-jogger-web-url"])
+    url = URI.parse(ENV["RUBY_JOGGER_WEB_URL"])
     request = Net::HTTP::Get.new(url.to_s)
     5.times {
       Net::HTTP.start(url.host, url.port) { |http|
@@ -18,11 +18,10 @@ class Run
     }
 
     # Clear cache
-    redis = Resque.redis
-    redis.del "results_cache"
+    Resque.redis.del "results_cache"
 
     # Reset cache defaults
-    redis.set "results_cache", {
+    Resque.redis.set "results_cache", {
       :process_mem => [],
       :retained_objects => []
     }.to_json
@@ -35,7 +34,7 @@ class Run
     }
 
     # Set results from cache
-    results_cache = JSON.parse(redis.get("results_cache"))
+    results_cache = JSON.parse(Resque.redis.get("results_cache"))
     jog.results = results_cache
     jog.save
   end
