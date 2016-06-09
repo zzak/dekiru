@@ -11,12 +11,32 @@ class JogsController < ApplicationController
   # GET /jogs/1.json
   def show
     @memory = @jog.results["process_mem"].map do |jog|
-      [jog["time"]*1000, jog["size"]]
+      [jog["time"]*1000, jog["size"]] unless jog["size"].nil?
+    end
+    @response_time = @jog.results["response_time"].map do |jog|
+      [jog["time"]*1000, jog["size"]] unless jog["size"].nil?
+    end
+    @minor_gc = @jog.results["major_gc_count"].map do |jog|
+      [jog["time"]*1000, jog["size"]] unless jog["size"].nil?
+    end
+    @major_gc = @jog.results["minor_gc_count"].map do |jog|
+      [jog["time"]*1000, jog["size"]] unless jog["size"].nil?
     end
     @retained = @jog.results["retained_objects"].map do |jog|
-      [jog["time"]*1000, jog["size"]]
+      [jog["time"]*1000, jog["size"]] unless jog["size"].nil?
     end
-
+    @total = @jog.results["total_objects"].map do |jog|
+      [jog["time"]*1000, jog["size"]] unless jog["size"].nil?
+    end.compact
+    @strings = @jog.results["total_strings"].map do |jog|
+      [jog["time"]*1000, jog["size"]] unless jog["size"].nil?
+    end.compact
+    @hashes = @jog.results["total_hashes"].map do |jog|
+      [jog["time"]*1000, jog["size"]] unless jog["size"].nil?
+    end.compact
+    @arrays = @jog.results["total_arrays"].map do |jog|
+      [jog["time"]*1000, jog["size"]] unless jog["size"].nil?
+    end.compact
   end
 
   # GET /jogs/new

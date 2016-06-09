@@ -1,6 +1,3 @@
-require 'get_process_mem'
-require 'json'
-
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 

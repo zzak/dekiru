@@ -6,7 +6,6 @@ class Run
   def self.perform(jog_id)
     # TODO:
     #   - restart web process before doing work
-    #   - reset database
     #   - measure stat in separate process/fork
     jog = Jog.find(jog_id)
     jog.results = {}
@@ -20,13 +19,23 @@ class Run
       }
     }
 
+    # Clear posts db
+    Post.destroy_all
+
     # Clear cache
     Resque.redis.del "results_cache"
 
     # Reset cache defaults
     Resque.redis.set "results_cache", {
       :process_mem => [],
-      :retained_objects => []
+      :response_time => [],
+      :retained_objects => [],
+      :total_objects => [],
+      :total_strings => [],
+      :total_arrays => [],
+      :total_hashes => [],
+      :minor_gc_count => [],
+      :major_gc_count => []
     }.to_json
 
     # Jog n times

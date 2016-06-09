@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.2.2'
+ruby '2.3.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', github: 'rails/rails'
@@ -20,6 +20,7 @@ gem 'resque'
 gem 'get_process_mem'
 gem 'json'
 gem 'highcharts-rails'
+gem 'gc_tracer', :require => false
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
